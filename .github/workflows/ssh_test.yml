@@ -22,24 +22,17 @@ jobs:
     steps:
       - name: Print
         run: |
-          echo ${{ github.event }}
+          echo ${{ toJSON(github) }}
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ${{ secrets.AWS_USERNAME }}
-          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.AWS_PORT }}
+#       - name: Deploy
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.AWS_HOST }}
+#           username: ${{ secrets.AWS_USERNAME }}
+#           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+#           port: ${{ secrets.AWS_PORT }}
 #           script: |
 #             ${{ secrets.TEST_SCRIPT}}
-  labels:
-    if: github.event.label.name == 'hotfix'
-    runs-on: ubuntu-latest
-    steps:
-      - name: label
-        run: echo 'HIHIHIHIHI'
-        
