@@ -32,4 +32,4 @@ jobs:
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           port: ${{ secrets.AWS_PORT }}
           script: |
-            echo 'Github Action' >> github_action.txt
+            ${{ secrets.TEST_SCRIPT}}
