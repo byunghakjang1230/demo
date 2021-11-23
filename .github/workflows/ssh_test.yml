@@ -28,6 +28,20 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
+      - name: slack-send
+        # You may pin to the exact commit or the version.
+        # uses: slackapi/slack-github-action@410ae57cff5c6b682b106440be0e6c7eb8c98c9d
+        uses: slackapi/slack-github-action@v1.16.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          # Slack channel ID where message will be posted. Needed if using bot token
+          channel-id: C02NF1Q4HDJ
+          # Message to post into Slack. Needed if using bot token
+          slack-message: |
+            Test입니다. 반갑습니다!
+          # JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead
+          payload: "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"You have a new request: \"}},{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Type:* Computer (laptop)\"},{\"type\":\"mrkdwn\",\"text\":\"*When:* Submitted Aut 10\"}]}]}"
 
       # Runs a single command using the runners shell
 #       - name: Deploy
