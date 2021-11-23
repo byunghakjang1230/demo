@@ -38,9 +38,7 @@ jobs:
           # Slack channel ID where message will be posted. Needed if using bot token
           channel-id: 'C02NF1Q4HDJ'
           # Message to post into Slack. Needed if using bot token
-          slack-message: |
-            'Test입니다. 반갑습니다!'
-            'HIHI'
+          slack-message: 'Test입니다. 반갑습니다!'
           # JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead
           payload: "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"You have a new request: \"}},{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Type:* Computer (laptop)\"},{\"type\":\"mrkdwn\",\"text\":\"*When:* Submitted Aut 10\"}]}]}"
 
