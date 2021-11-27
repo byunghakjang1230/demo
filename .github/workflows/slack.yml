@@ -25,6 +25,7 @@ jobs:
       - name: build result to slack
         uses: 8398a7/action-slack@v3
         env:
+          TEST_ENV: 'Test!!!!'
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
@@ -36,17 +37,17 @@ jobs:
                 pretext: '🔍 Review Request',
                 fields: [{
                   title: '✅ Project',
-                  value: '- PROJECT_NAME \n',
+                  value: '- $TEST_ENV \n',
                   short: false
                 },
                 {
                   title: '✅ Reviewers',
-                  value: '- REVIEWERS \n',
+                  value: '- ${{ $TEST_ENV }} \n',
                   short: false
                 },
                 {
                   title: '✅ Issue',
-                  value: '- 🚀 PR 확인 \n',
+                  value: '- 🚀 <$TEST_ENV|PR 확인> \n',
                   short: true
                 }]
               }]
