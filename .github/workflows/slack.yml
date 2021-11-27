@@ -31,11 +31,11 @@ jobs:
             {
               attachments: [{
                 color: 'good',
-                title: 'CI Result',
+                title: '✅ 레파지토리 이동!',
+                title_link: 'https://github.com/byunghakjang1230/demo',
                 text: 'Succeeded',
                 fields: [{
-                  title: '✅ 레파지토리 이동!',
-                  title_link: 'https://github.com/byunghakjang1230/demo',
+                  title: 'lower case',
                   value: 'LOWER CASE CHECK'.toLowerCase(),
                   short: true
                 },
