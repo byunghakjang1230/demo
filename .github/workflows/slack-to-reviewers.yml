@@ -36,6 +36,6 @@ jobs:
               }]
             }
         env:
-          REVIEWERS: ${{ format('{0}|woojang1230', join(github.event.pull_request.requested_reviewers.*.login, '|')) }}
+#           REVIEWERS: ${{ format('{0}|woojang1230', join(github.event.pull_request.requested_reviewers.*.login, '|')) }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
