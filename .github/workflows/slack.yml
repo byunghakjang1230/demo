@@ -31,9 +31,7 @@ jobs:
             {
               attachments: [{
                 color: 'good',
-                title: 'Title - go google',
-                title_link: 'https://google.com',
-                text: 'Succeeded',
+                pretext: '🔍 Review Request',
                 fields: [{
                   title: '리뷰 확인',
                   value: '<https://github.com/byunghakjang1230/demo|🚀 Repository 이동>',
