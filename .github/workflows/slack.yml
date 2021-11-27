@@ -30,13 +30,25 @@ jobs:
           custom_payload: |
             {
               attachments: [{
-                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: [
-                  { text: 'Send Slack'}, 
-                  { type: 'mrkdwn',
-                    text: '[리파지토리 이동](https://github.com/byunghakjang1230/demo)'
-                  }
-                ]
+                color: 'good',
+                title: 'CI Result',
+                text: 'Succeeded',
+                fields: [{
+                  title: 'lower case',
+                  title_url: 'https://github.com/byunghakjang1230/demo',
+                  value: 'LOWER CASE CHECK'.toLowerCase(),
+                  short: true
+                },
+                {
+                  title: 'reverse',
+                  value: 'gnirts esrever'.split('').reverse().join(''),
+                  short: true
+                },
+                {
+                  title: 'long title1',
+                  value: 'long value1',
+                  short: false
+                }],
               }]
             }
         env:
