@@ -6,6 +6,7 @@ name: TEST
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   pull_request:
+    branches: [ main ]
     types: [ labeled ]
 
 # Allows you to run this workflow manually from the Actions tab
@@ -33,6 +34,7 @@ jobs:
         with:
           status: custom
           fields: workflow,job,commit,repo,ref,author,took
+          mention: 'byunghakjang1230'
           custom_payload: |
             {
               attachments: [{
