@@ -33,23 +33,24 @@ jobs:
                 color: 'good',
                 pretext: '🔍 Review Request',
                 fields: [{
-                  title: '리뷰 확인',
-                  value: '<https://github.com/byunghakjang1230/demo|🚀 Repository 이동>',
+                  title: '✅ Project',
+                  value: '- PROJECT_NAME \n',
                   short: false
                 },
                 {
-                  title: 'reverse',
-                  value: 'gnirts esrever'.split('').reverse().join(''),
+                  title: '✅ Reviewers',
+                  value: '- REVIEWERS \n'
                   short: false
                 },
                 {
-                  title: 'long title1',
-                  value: 'long value1',
+                  title: '✅ Issue',
+                  value: '- 🚀 PR 확인 \n',
                   short: false
-                }],
+                }]
               }]
             }
         env:
+          PROJECT_NAME: 'hi'
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
 #       - name: slack-send
