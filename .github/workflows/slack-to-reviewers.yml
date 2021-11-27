@@ -24,7 +24,7 @@ jobs:
         env:
           REVIEWERS: ${{join(github.event.pull_request.requested_reviewers.*.login, '|')}}
         run: echo "$REVIEWERS"
-      - name: build result to slack
+      - name: workflow result to slack
         uses: 8398a7/action-slack@v3
         with:
           status: custom
@@ -36,6 +36,5 @@ jobs:
               }]
             }
         env:
-#           REVIEWERS: ${{ format('{0}|woojang1230', join(github.event.pull_request.requested_reviewers.*.login, '|')) }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
