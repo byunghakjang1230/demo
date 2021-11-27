@@ -24,6 +24,8 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: build result to slack
         uses: 8398a7/action-slack@v3
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
           fields: workflow,job,commit,repo,ref,author,took
@@ -45,13 +47,10 @@ jobs:
                 {
                   title: '✅ Issue',
                   value: '- 🚀 PR 확인 \n',
-                  short: false
+                  short: true
                 }]
               }]
             }
-        env:
-          PROJECT_NAME: 'hi'
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
 #       - name: slack-send
 #         # You may pin to the exact commit or the version.
