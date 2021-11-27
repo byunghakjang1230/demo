@@ -37,18 +37,18 @@ jobs:
                 pretext: '🔍 Review Request',
                 fields: [{
                   title: '✅ Project',
-                  value: '- $TEST_ENV \n',
+                  value: `- $TEST_ENV \n`,
                   short: false
                 },
                 {
                   title: '✅ Reviewers',
-                  value: '- ${{ $TEST_ENV }} \n',
+                  value: `- $TEST_ENV \n`,
                   short: false
                 },
                 {
                   title: '✅ Issue',
-                  value: '- 🚀 <$TEST_ENV|PR 확인> \n',
-                  short: true
+                  value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
+                  short: false
                 }]
               }]
             }
