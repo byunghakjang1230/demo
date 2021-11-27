@@ -32,14 +32,7 @@ jobs:
       - name: build result to slack
         uses: 8398a7/action-slack@v3
         with:
-#           status: custom
-#           mention: 'byunghakjang1230'
-#           if_mention: failure
-#         env:
-#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
           status: custom
-          fields: workflow,job,commit,repo,ref,author,took
-#           mention: 'byunghakjang1230'
           custom_payload: |
             {
               text: '@byunghakjang1230'
