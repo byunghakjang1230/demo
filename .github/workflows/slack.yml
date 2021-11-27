@@ -34,10 +34,10 @@ jobs:
             {
               attachments: [{
                 color: 'good',
-                pretext: '🔍 Review Request $TEST_ENV',
+                pretext: '🔍 Review Request' + ' $TEST_ENV',
                 fields: [{
                   title: '✅ Project',
-                  value: "- $TEST_ENV \n",
+                  value: '- ' + $TEST_ENV + ' \n',
                   short: false
                 },
                 {
