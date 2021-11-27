@@ -5,11 +5,9 @@ name: TEST
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-#   pull_request:
-#     branches: [ main ]
-#     types: [ labeled ]
-  push:
-    branches: [main]
+  pull_request:
+    branches: [ main ]
+    types: [ labeled ]
 
 # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,7 +35,6 @@ jobs:
           status: custom
           custom_payload: |
             {
-              text: '@byunghakjang1230'
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
