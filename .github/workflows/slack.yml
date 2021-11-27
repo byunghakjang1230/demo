@@ -36,17 +36,17 @@ jobs:
                 pretext: '🔍 Review Request',
                 fields: [{
                   title: '✅ Project',
-                  value: '- PROJECT_NAME \n',
+                  value: ' PROJECT_NAME \n',
                   short: false
                 },
                 {
                   title: '✅ Reviewers',
-                  value: '- REVIEWERS \n'
+                  value: ' REVIEWERS \n'
                   short: false
                 },
                 {
                   title: '✅ Issue',
-                  value: '- 🚀 PR 확인 \n',
+                  value: ' 🚀 PR 확인 \n',
                   short: true
                 }]
               }]
