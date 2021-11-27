@@ -31,12 +31,12 @@ jobs:
             {
               attachments: [{
                 color: 'good',
-                title: '✅ 레파지토리 이동!',
-                title_link: 'https://github.com/byunghakjang1230/demo',
+                title: 'Title - go google',
+                title_link: 'https://google.com',
                 text: 'Succeeded',
                 fields: [{
-                  title: 'lower case',
-                  value: 'LOWER CASE CHECK'.toLowerCase(),
+                  title: '리뷰 확인',
+                  value: '<https://github.com/byunghakjang1230/demo|🚀 Repository 이동>',
                   short: true
                 },
                 {
