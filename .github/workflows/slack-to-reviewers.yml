@@ -26,9 +26,6 @@ jobs:
         run: echo "$REVIEWERS"
       - name: build result to slack
         uses: 8398a7/action-slack@v3
-        env:
-          REVIEWERS: ${{ format('{0}|woojang1230', join(github.event.pull_request.requested_reviewers.*.login, '|')) }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
           custom_payload: |
@@ -38,4 +35,7 @@ jobs:
                 text: `${process.env.AS_WORKFLOW}\n<@woojang1230>\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
               }]
             }
+        env:
+          REVIEWERS: ${{ format('{0}|woojang1230', join(github.event.pull_request.requested_reviewers.*.login, '|')) }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
