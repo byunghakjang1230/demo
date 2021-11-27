@@ -1,4 +1,4 @@
-name: TEST
+name: Reviewer Check
 
 # Controls when the workflow will run
 on:
@@ -22,5 +22,5 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Reviewers
         env:
-          REVIEWERS: join( github.event.pull_request.requested_reviewers.*.login, '|' )
+          REVIEWERS: ${{join(github.event.pull_request.requested_reviewers.*.login, '|')}}
         run: echo "$REVIEWERS"
