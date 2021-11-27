@@ -26,11 +26,19 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: custom
+          fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
               attachments: [{
+                type: 'mrkdwn'
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                text: `${process.env.AS_WORKFLOW}\n<@byunghakjang1230>, <@woojang1230>\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
+                fields: [
+                  { text: 'Send Slack'}, 
+                  { type: 'mrkdwn',
+                    text: '[리파지토리 이동](https://github.com/byunghakjang1230/demo)'
+                  },
+                  { text: `${process.env.AS_WORKFLOW}\n<@byunghakjang1230>, <@woojang1230>\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,} 
+                ]
               }]
             }
         env:
