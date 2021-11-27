@@ -46,7 +46,7 @@ jobs:
                 },
                 {
                   title: '✅ Reviewers',
-                  value: '- $REVIEWERS \n'
+                  value: '- $REVIEWERS \n',
                   short: false
                 },
                 {
