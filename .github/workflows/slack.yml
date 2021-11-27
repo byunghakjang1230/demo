@@ -37,12 +37,12 @@ jobs:
                 fields: [{
                   title: '리뷰 확인',
                   value: '<https://github.com/byunghakjang1230/demo|🚀 Repository 이동>',
-                  short: true
+                  short: false
                 },
                 {
                   title: 'reverse',
                   value: 'gnirts esrever'.split('').reverse().join(''),
-                  short: true
+                  short: false
                 },
                 {
                   title: 'long title1',
