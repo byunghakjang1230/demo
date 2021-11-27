@@ -50,8 +50,8 @@ jobs:
                   short: false
                 },
                 {
-                  title: '✅ Issue',
-                  value: '- 🚀 <${{ env.PR_URL }}|PR 확인> \n',
+                  title: '✅ PR',
+                  value: '- 🚀 <${{ env.PR_URL }}|PR 확인> \n- 🚀 <${{ env.PR_URL }}/files|리뷰 페이지 이동>',
                   short: false
                 }]
               }]
