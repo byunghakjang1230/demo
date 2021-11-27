@@ -34,8 +34,8 @@ jobs:
                 title: 'CI Result',
                 text: 'Succeeded',
                 fields: [{
-                  title: 'lower case',
-                  title_url: 'https://github.com/byunghakjang1230/demo',
+                  title: '✅ 레파지토리 이동!',
+                  title_link: 'https://github.com/byunghakjang1230/demo',
                   value: 'LOWER CASE CHECK'.toLowerCase(),
                   short: true
                 },
