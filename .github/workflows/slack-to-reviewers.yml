@@ -22,12 +22,12 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Reviewers
         env:
-          REVIEWERS: ${{join(github.event.pull_request.requested_reviewers.*.login, '|')}}
+          REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
         run: echo "$REVIEWERS"
       - name: workflow result to slack
         uses: 8398a7/action-slack@v3
         env:
-          REVIEWERS: ${{ '<@' && join(github.event.pull_request.requested_reviewers.*.login, '>, <@') && '>'}}
+          REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
