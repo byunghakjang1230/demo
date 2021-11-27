@@ -41,17 +41,17 @@ jobs:
                 pretext: '🔍 Review Request',
                 fields: [{
                   title: '✅ Project',
-                  value: `- $PROJECT_NAME \n`,
+                  value: '- ${{ env.PROJECT_NAME }} \n',
                   short: false
                 },
                 {
                   title: '✅ Reviewers',
-                  value: `- $REVIEWERS \n`,
+                  value: '- ${{ env.REVIEWERS }} \n',
                   short: false
                 },
                 {
                   title: '✅ Issue',
-                  value: `- 🚀 <$PR_URL|PR 확인> \n`,
+                  value: '- 🚀 <${{ env.PR_URL }}|PR 확인> \n',
                   short: false
                 }]
               }]
