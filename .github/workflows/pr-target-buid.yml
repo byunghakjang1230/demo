@@ -40,5 +40,5 @@ jobs:
         env:
           RESULT: ""
         run: |
-          $RESULT=`cat public/result.txt`
+          $RESULT=`cat ~/public/result.txt`
           echo $RESULT
