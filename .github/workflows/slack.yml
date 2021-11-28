@@ -29,11 +29,10 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
-          fields: workflow,job,commit,repo,ref,author,took
           custom_payload: |
             {
               attachments: [{
-                color: 'good',
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
                 fields: [{
                   title: '✅ Project',
