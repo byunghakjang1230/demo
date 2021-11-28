@@ -9,9 +9,13 @@ on:
     
 jobs:
   build:
-    if: github.event_name == 'pull_request'
+#     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: PR Repository Checkout
         uses: actions/checkout@v2
       - name: Result Save
@@ -24,7 +28,7 @@ jobs:
           name: my-artifact
           path: ~/public
   send-slack:
-    if: github.event_name == 'pull_request_target'
+#     if: github.event_name == 'pull_request_target'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
