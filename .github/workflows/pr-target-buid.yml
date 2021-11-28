@@ -11,7 +11,7 @@ on:
     
 jobs:
   build:
-    if: github.event_name == 'push'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: PR Repository Checkout
@@ -26,7 +26,7 @@ jobs:
           name: my-artifact
           path: ~/public
   send-slack:
-    if: github.event_name == 'push'
+    if: github.event_name == 'pull_request_target'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -39,5 +39,7 @@ jobs:
       - name: Result
         env:
           RESULT: cat ~/public/result.txt
+        if: cat ~/public/result.txt 
         run: |
+          ls -la ~/
           echo $RESULT
