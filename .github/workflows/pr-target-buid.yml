@@ -11,7 +11,7 @@ on:
     
 jobs:
   build:
-    if: github.event_name == push
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: PR Repository Checkout
@@ -24,7 +24,7 @@ jobs:
           name: my-artifact
           path: public/result.txt
   send-slack:
-    if: github.event_name == push
+    if: github.event_name == 'push'
     needs: [build]
     runs-on: ubuntu-latest
     steps:
