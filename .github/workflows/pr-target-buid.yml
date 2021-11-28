@@ -17,7 +17,9 @@ jobs:
       - name: PR Repository Checkout
         uses: actions/checkout@v2
       - name: Result Save
-        run: echo "true" >> public/result.txt
+        run: |
+          mkdir public
+          echo "true" >> public/result.txt
       - name: Artifact Uplode
         uses: actions/upload-artifact@v2
         with:
