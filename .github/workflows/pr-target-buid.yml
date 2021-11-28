@@ -18,13 +18,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Result Save
         run: |
-          mkdir public
-          echo "true" >> public/result.txt
+          mkdir ~/public
+          echo "true" >> ~/public/result.txt
       - name: Artifact Uplode
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: public/result.txt
+          path: ~/public
   send-slack:
     if: github.event_name == 'push'
     needs: [build]
@@ -35,11 +35,11 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: my-artifact
-          path: ~/
+          path: ~/public
       - name: Result
         env:
           RESULT: ""
         run: |
-          ls -la
+          ls -la ~/
           $RESULT=`cat ~/public/result.txt`
           echo $RESULT
