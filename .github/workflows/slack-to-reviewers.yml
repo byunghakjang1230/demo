@@ -20,6 +20,10 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - name: Dump Job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
       - name: Reviewers
         env:
           REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
