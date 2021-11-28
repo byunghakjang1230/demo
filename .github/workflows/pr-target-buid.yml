@@ -2,8 +2,6 @@ name: Rull Request & Pull Request Target
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
   pull_request_target:
@@ -39,7 +37,6 @@ jobs:
       - name: Result
         env:
           RESULT: cat ~/public/result.txt
-        if: cat ~/public/result.txt 
         run: |
           ls -la ~/
           echo $RESULT
