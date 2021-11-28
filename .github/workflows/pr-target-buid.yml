@@ -40,5 +40,6 @@ jobs:
         env:
           RESULT: ""
         run: |
+          ls -la
           $RESULT=`cat ~/public/result.txt`
           echo $RESULT
