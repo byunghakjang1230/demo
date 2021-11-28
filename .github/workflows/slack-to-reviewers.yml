@@ -1,0 +1,62 @@
+name: Reviewer Check
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request_target:
+    branches: [ main ]
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  send-slack-to-reviewers:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump Job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Reviewers
+        env:
+          REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
+        run: echo "$REVIEWERS"
+      - name: workflow result to slack
+        uses: 8398a7/action-slack@v3
+        env:
+          REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PROJECT_NAME: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          status: custom
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                pretext: '🔍 Review Request',
+                fields: [{
+                  title: '✅ Project',
+                  value: '- ${{ env.PROJECT_NAME }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ Reviewers',
+                  value: '- ${{ env.REVIEWERS }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ PR',
+                  value: '- 🚀 <${{ env.PR_URL }}|PR 확인> \n- 🚀 <${{ env.PR_URL }}/files|리뷰 페이지 이동>',
+                  short: false
+                }]
+              }]
+            }
+        if: always()

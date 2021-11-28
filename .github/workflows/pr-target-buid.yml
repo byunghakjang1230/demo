@@ -1,0 +1,46 @@
+name: Rull Request & Pull Request Target
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
+    branches: [ main ]
+  pull_request_target:
+    branches: [ main ]
+    
+jobs:
+  build:
+#     if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: PR Repository Checkout
+        uses: actions/checkout@v2
+      - name: Result Save
+        run: |
+          mkdir ~/public
+          echo "true" >> ~/public/result.txt
+      - name: Artifact Uplode
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: ~/public
+  send-slack:
+#     if: github.event_name == 'pull_request_target'
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Repository Checkout
+        uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+          path: ~/public
+      - name: Result
+        env:
+          RESULT: cat ~/public/result.txt
+        run: |
+          ls -la ~/
+          echo $RESULT
