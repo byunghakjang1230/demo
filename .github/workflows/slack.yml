@@ -19,42 +19,42 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Issue
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
-      - name: workflow result to slack
-        uses: 8398a7/action-slack@v3
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-          REVIEWERS: ${{ format('<@woojang1230|@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
-        with:
-          status: custom
-          custom_payload: |
-            {
-              attachments: [{
-                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                pretext: '🔍 Review Request ${{ env.TEST_ENV }} ${{ env.REVIEWERS }}',
-                mentions: 'byunghakjang1230'
-                fields: [{
-                  title: '✅ Project',
-                  value: '- ${{ env.TEST_ENV }} \n',
-                  short: false
-                },
-                {
-                  title: '✅ Reviewers',
-                  value: `- $TEST_ENV \n`,
-                  short: false
-                },
-                {
-                  title: '✅ Issue',
-                  value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
-                  short: false
-                }]
-              }]
-            }
-        if: always() # Pick up events even if the job fails or is canceled.
+#       - name: workflow result to slack
+#         uses: 8398a7/action-slack@v3
+#         env:
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+#           REVIEWERS: ${{ format('<@woojang1230|@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
+#         with:
+#           status: custom
+#           custom_payload: |
+#             {
+#               attachments: [{
+#                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+#                 pretext: '🔍 Review Request ${{ env.TEST_ENV }} ${{ env.REVIEWERS }}',
+#                 mentions: 'byunghakjang1230'
+#                 fields: [{
+#                   title: '✅ Project',
+#                   value: '- ${{ env.TEST_ENV }} \n',
+#                   short: false
+#                 },
+#                 {
+#                   title: '✅ Reviewers',
+#                   value: `- $TEST_ENV \n`,
+#                   short: false
+#                 },
+#                 {
+#                   title: '✅ Issue',
+#                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
+#                   short: false
+#                 }]
+#               }]
+#             }
+#         if: always() # Pick up events even if the job fails or is canceled.
           
 #       - name: build result to slack
 #         uses: 8398a7/action-slack@v3
