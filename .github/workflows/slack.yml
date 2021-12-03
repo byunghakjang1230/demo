@@ -24,14 +24,10 @@ jobs:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
       - name: Post to a Slack channel
-        id: slack
         uses: slackapi/slack-github-action@v1.16.0
-        with:
-          channel-id: 'C02NRR7JHNE'  # Slack channel id or name to post message. https://api.slack.com/methods/chat.postMessage#channels
-          slack-message: 'posting from a github action! @woojang1230'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        
+
         
 #       - name: build result to slack
 #         uses: 8398a7/action-slack@v3
