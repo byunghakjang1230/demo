@@ -34,6 +34,7 @@ jobs:
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 pretext: '🔍 Review Request ${{ env.TEST_ENV }} ${{ env.REVIEWERS }}',
+                mentions: 'byunghakjang1230'
                 fields: [{
                   title: '✅ Project',
                   value: '- ${{ env.TEST_ENV }} \n',
