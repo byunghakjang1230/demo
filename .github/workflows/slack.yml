@@ -19,7 +19,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
-          apt-get update && apt-get install -y curl
+          sudo apt-get update && sudo apt-get install -y curl
           curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!111111"}' ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Issue
         env:
