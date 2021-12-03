@@ -31,7 +31,7 @@ jobs:
       - name: workflow result to slack
         uses: 8398a7/action-slack@v3
         env:
-          REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
+          REVIEWERS: ${{ format('<@{0}>, <@byunghakjang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           PROJECT_NAME: ${{ github.repository }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
