@@ -25,38 +25,19 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
-#       - name: workflow result to slack
-#         uses: 8398a7/action-slack@v3
-#         env:
-#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-#           REVIEWERS: ${{ format('<@woojang1230|@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
-#         with:
-#           status: custom
-#           custom_payload: |
-#             {
-#               attachments: [{
-#                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-#                 pretext: '🔍 Review Request ${{ env.TEST_ENV }} ${{ env.REVIEWERS }}',
-#                 mentions: 'byunghakjang1230'
-#                 fields: [{
-#                   title: '✅ Project',
-#                   value: '- ${{ env.TEST_ENV }} \n',
-#                   short: false
-#                 },
-#                 {
-#                   title: '✅ Reviewers',
-#                   value: `- $TEST_ENV \n`,
-#                   short: false
-#                 },
-#                 {
-#                   title: '✅ Issue',
-#                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
-#                   short: false
-#                 }]
-#               }]
-#             }
-#         if: always() # Pick up events even if the job fails or is canceled.
-          
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: general
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_LINK_NAMES: true
+          SLACK_MESSAGE: 'Post Content :rocket: @woojang1230'
+          SLACK_TITLE: Post Title
+          SLACK_USERNAME: rtCamp
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        
+        
 #       - name: build result to slack
 #         uses: 8398a7/action-slack@v3
 #         env:
