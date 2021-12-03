@@ -25,7 +25,7 @@ jobs:
       - name: workflow result to slack
         uses: 8398a7/action-slack@v3
         with:
-          status: ${{ job.status }}
+          status: custom
           mention: 'byunghakjang1230'
           if_mention: always
 #           fields: repo,message,commit,author,action,eventName,ref,workflow # selectable (default: repo,message)
