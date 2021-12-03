@@ -19,8 +19,6 @@ jobs:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
-          sudo apt-get update && sudo apt-get install -y curl
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!111111"}' ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Issue
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
@@ -32,7 +30,7 @@ jobs:
           channel-id: 'C02NRR7JHNE'  # Slack channel id or name to post message. https://api.slack.com/methods/chat.postMessage#channels
           slack-message: 'posting from a github action! @woojang1230'
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         
         
 #       - name: build result to slack
