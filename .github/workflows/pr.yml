@@ -28,6 +28,40 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
+      - name: workflow result to slack
+        uses: 8398a7/action-slack@v3
+        env:
+          REVIEWERS: ${{ format('<@{0}>, <@woojang1230>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PROJECT_NAME: ${{ github.repository }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          status: custom
+          mention: 'byunghakjang1230'
+          if_mention: always
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                pretext: '🔍 Review Request',
+                fields: [{
+                  title: '✅ Project',
+                  value: '- ${{ env.PROJECT_NAME }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ Reviewers',
+                  value: '- ${{ env.REVIEWERS }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ PR',
+                  value: '- 🚀 <${{ env.PR_URL }}|PR 확인> \n- 🚀 <${{ env.PR_URL }}/files|리뷰 페이지 이동>',
+                  short: false
+                }]
+              }]
+            }
+        if: always()
 #       - name: slack-send
 #         # You may pin to the exact commit or the version.
 #         # uses: slackapi/slack-github-action@410ae57cff5c6b682b106440be0e6c7eb8c98c9d
