@@ -30,7 +30,7 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                pretext: '🔍 Review Request ${{ env.TEST_ENV }} <@woojang1230>',
+                pretext: '🔍 Review Request ${{ env.TEST_ENV }} <@woojang1230 >',
                 fields: [{
                   title: '✅ Project',
                   value: '- ${{ env.TEST_ENV }} \n',
