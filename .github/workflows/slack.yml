@@ -24,13 +24,16 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: workflow result to slack
         uses: 8398a7/action-slack@v3
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+          REVIEWERS: ${{ format('<@woojang1230>, <@>', join(github.event.pull_request.requested_reviewers.*.login, '>, <@')) }}
         with:
           status: custom
           custom_payload: |
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                pretext: '🔍 Review Request ${{ env.TEST_ENV }} <@woojang1230|@byunghakjang1230>',
+                pretext: '🔍 Review Request ${{ env.TEST_ENV }} ${{ env.REVIEWERS }}',
                 fields: [{
                   title: '✅ Project',
                   value: '- ${{ env.TEST_ENV }} \n',
@@ -48,8 +51,6 @@ jobs:
                 }]
               }]
             }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
         if: always() # Pick up events even if the job fails or is canceled.
           
 #       - name: build result to slack
