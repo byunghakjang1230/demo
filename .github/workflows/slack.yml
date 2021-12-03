@@ -28,7 +28,29 @@ jobs:
           status: ${{ job.status }}
           mention: 'byunghakjang1230'
           if_mention: always
-          fields: repo,message,commit,author,action,eventName,ref,workflow # selectable (default: repo,message)
+#           fields: repo,message,commit,author,action,eventName,ref,workflow # selectable (default: repo,message)
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
+                fields: [{
+                  title: '✅ Project',
+                  value: '- ${{ env.TEST_ENV }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ Reviewers',
+                  value: `- $TEST_ENV \n`,
+                  short: false
+                },
+                {
+                  title: '✅ Issue',
+                  value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
+                  short: false
+                }]
+              }]
+            }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
         if: always() # Pick up events even if the job fails or is canceled.
