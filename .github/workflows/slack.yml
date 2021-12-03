@@ -25,6 +25,8 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: Post to a Slack channel
         uses: slackapi/slack-github-action@v1.16.0
+        with:
+          payload: "{\"key\":\"value\",\"foo\":\"bar\"}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
