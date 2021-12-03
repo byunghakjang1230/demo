@@ -17,7 +17,9 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: |
+          echo "$GITHUB_CONTEXT"
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
       - name: Issue
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
