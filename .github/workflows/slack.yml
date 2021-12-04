@@ -23,46 +23,37 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
-      - name: Post to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.16.0
-        with:
-          channel-id: 'C02NRR7JHNE'  # Slack channel id or name to post message. https://api.slack.com/methods/chat.postMessage#channels
-          slack-message: 'posting from a github action!'
+      - name: build result to slack
+        uses: 8398a7/action-slack@v3
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-        
-#       - name: build result to slack
-#         uses: 8398a7/action-slack@v3
-#         env:
-#           TEST_ENV: 'Test!!!!'
-#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#         with:
-#           status: custom
-#           custom_payload: |
-#             {
-#               attachments: [{
-#                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-#                 pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
-#                 fields: [{
-#                   title: '✅ Project',
-#                   value: '- ${{ env.TEST_ENV }} \n',
-#                   short: false
-#                 },
-#                 {
-#                   title: '✅ Reviewers',
-#                   value: `- $TEST_ENV \n`,
-#                   short: false
-#                 },
-#                 {
-#                   title: '✅ Issue',
-#                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
-#                   short: false
-#                 }]
-#               }]
-#             }
-#         if: always()
+          TEST_ENV: 'Test!!!!'
+          REVIEWERS: '<@byunghakjang1230>, <@woojang1230>'
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          status: custom
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
+                fields: [{
+                  title: '✅ Project',
+                  value: '- ${{ env.TEST_ENV }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ Reviewers',
+                  value: '-  \${{ env.REVIEWERS }} n',
+                  short: false
+                },
+                {
+                  title: '✅ Issue',
+                  value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
+                  short: false
+                }]
+              }]
+            }
+        if: always()
         
 #       - name: slack-send
 #         # You may pin to the exact commit or the version.
