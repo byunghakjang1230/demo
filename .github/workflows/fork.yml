@@ -1,0 +1,53 @@
+name: Slack Test
+
+# Controls when the workflow will run
+on:
+  fork:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+      - name: Issue
+        env:
+          JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
+        run: echo "$JOB_CONTEXT"
+      - name: build result to slack
+        uses: 8398a7/action-slack@v3
+        env:
+          TEST_ENV: 'Test!!!!'
+          REVIEWERS: '<@byunghakjang1230>, <@woojang1230>'
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          status: custom
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
+                fields: [{
+                  title: '✅ Projectd',
+                  value: '- ${{ env.TEST_ENV }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ Reviewers',
+                  value: '-  \${{ env.REVIEWERS }} \n',
+                  short: false
+                },
+                {
+                  title: '✅ Issue',
+                  value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
+                  short: false
+                }]
+              }]
+            }
+        if: always()
