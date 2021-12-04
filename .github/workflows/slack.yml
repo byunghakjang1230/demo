@@ -37,7 +37,7 @@ jobs:
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
                 fields: [{
-                  title: '✅ Project',
+                  title: '✅ Projectd',
                   value: '- ${{ env.TEST_ENV }} \n',
                   short: false
                 },
