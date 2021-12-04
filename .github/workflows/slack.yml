@@ -27,7 +27,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         env:
           TEST_ENV: 'Test!!!!'
-          REVIEWERS: '<@byunghakjang1230>, <@woojang1230>'
+          REVIEWERS: '<@byunghakjang123>, <@woojang1230>'
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
@@ -43,7 +43,7 @@ jobs:
                 },
                 {
                   title: '✅ Reviewers',
-                  value: '-  \${{ env.REVIEWERS }} n',
+                  value: '-  \${{ env.REVIEWERS }} \n',
                   short: false
                 },
                 {
