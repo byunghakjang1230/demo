@@ -33,7 +33,7 @@ jobs:
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 pretext: '💾 Fork Repository 💾',
-                title: '📢 *${{ github.repository }}* is forked by <@${{ github.actor }}>'
+                title: '📢 *${{ github.repository }}* is forked by <@${{ github.actor }}>',
                 fields: [{
                   title: '📢 *${{ github.repository }}* is forked by <@${{ github.actor }}>',
                   value: '- *<@${{ github.actor }}>*\n- *Fork Repository:* ${{ github.event.forkee.html_url }} \n- *Base Repository:* ${{ github.event.repository.html_url }}\n',
