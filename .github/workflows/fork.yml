@@ -23,8 +23,6 @@ jobs:
       - name: build result to slack
         uses: 8398a7/action-slack@v3
         env:
-          TEST_ENV: 'Test!!!!'
-          REVIEWERS: '<@byunghakjang1230>, <@woojang1230>'
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
           status: custom
@@ -32,11 +30,15 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                pretext: '💾 Fork Repository 💾',
-                title: '📢 *${{ github.repository }}* is forked by <@${{ github.actor }}>',
+                title: '🚀 Fork Repository',
                 fields: [{
-                  title: '📢 *${{ github.repository }}* is forked by <@${{ github.actor }}>',
-                  value: '- *<@${{ github.actor }}>*\n- *Fork Repository:* ${{ github.event.forkee.html_url }} \n- *Base Repository:* ${{ github.event.repository.html_url }}\n',
+                  title: 'Base Repository Info',
+                  value: '- *Owner:* <@${{ github.repository_owner }}> \n- *Repository:* ${{ github.event.repository.html_url }}\n',
+                  short: false
+                },
+                {
+                  title: 'Frok Repository Info',
+                  value: '- *Owner:* ${{ github.event.forkee.owner.login }} \n- *Repository:* ${{ github.event.forkee.html_url }}\n',
                   short: false
                 }]
               }]
