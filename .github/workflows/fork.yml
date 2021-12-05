@@ -1,4 +1,4 @@
-name: Slack Test
+name: Repository Fork To Send Slack
 
 # Controls when the workflow will run
 on:
@@ -32,20 +32,10 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
+                pretext: '💾 Fork Repository 💾',  
                 fields: [{
-                  title: '✅ Projectd',
-                  value: '- ${{ env.TEST_ENV }} \n',
-                  short: false
-                },
-                {
-                  title: '✅ Reviewers',
-                  value: '-  \${{ env.REVIEWERS }} \n',
-                  short: false
-                },
-                {
-                  title: '✅ Issue',
-                  value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
+                  title: '📢 *${{ github.repository }}* is forked by *<@${{ github.actor }}>*',
+                  value: '- *Fork Repository:* ${{ github.event.forkee.html_url }} \n- *Base Repository:* ${{ github.event.repository.html_url }}\n',
                   short: false
                 }]
               }]
