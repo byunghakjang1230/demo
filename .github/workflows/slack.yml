@@ -33,34 +33,6 @@ jobs:
           status: custom
           custom_payload: |
             {
-              type: "divider"
-            },
-            {
-              type: "actions",
-              elements: [
-                {
-                  type: "button",
-                  text: {
-                    type: "plain_text",
-                    emoji: true,
-                    text: "Approve"
-                  },
-                  style: "primary",
-                  value: "click_me_123"
-                },
-                {
-                  type: "button",
-                  text: {
-                    type: "plain_text",
-                    emoji: true,
-                    text: "Deny"
-                  },
-                  style: "danger",
-                  value: "click_me_123"
-                }
-              ]
-            },
-            {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
@@ -79,6 +51,31 @@ jobs:
                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
                   short: false
                 }]
+              }],
+              actions: [{
+                type: "actions",
+                elements: [
+                  {
+                    type: "button",
+                    text: {
+                      type: "plain_text",
+                      emoji: true,
+                      text: "Approve"
+                    },
+                    style: "primary",
+                    value: "click_me_123"
+                  },
+                  {
+                    type: "button",
+                    text: {
+                      type: "plain_text",
+                      emoji: true,
+                      text: "Deny"
+                    },
+                    style: "danger",
+                    value: "click_me_123"
+                  }
+                ]
               }]
             }
         if: always()
