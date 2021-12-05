@@ -52,29 +52,29 @@ jobs:
                   short: false
                 }],
                 actions: [{
-                  type: "actions",
-                  elements: [
-                    {
-                      type: "button",
-                      text: {
-                        type: "plain_text",
-                        emoji: true,
-                        text: "Approve"
-                      },
-                      style: "primary",
-                      value: "click_me_123"
-                    },
-                    {
-                      type: "button",
-                      text: {
-                        type: "plain_text",
-                        emoji: true,
-                        text: "Deny"
-                      },
-                      style: "danger",
-                      value: "click_me_123"
+                    "name": "game",
+                    "text": "Chess",
+                    "type": "button",
+                    "value": "chess"
+                },
+                {
+                    "name": "game",
+                    "text": "Falken's Maze",
+                    "type": "button",
+                    "value": "maze"
+                },
+                {
+                    "name": "game",
+                    "text": "Thermonuclear War",
+                    "style": "danger",
+                    "type": "button",
+                    "value": "war",
+                    "confirm": {
+                        "title": "Are you sure?",
+                        "text": "Wouldn't you prefer a good game of chess?",
+                        "ok_text": "Yes",
+                        "dismiss_text": "No"
                     }
-                  ]
                 }]
               }]
             }
