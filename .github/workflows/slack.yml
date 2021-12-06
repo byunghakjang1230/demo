@@ -51,6 +51,7 @@ jobs:
                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
                   short: false
                 }],
+                response_url: "https://www.postresponsestome.com/T123567/1509734234",
                 actions: [{
                     "name": "game",
                     "text": "Chess",
