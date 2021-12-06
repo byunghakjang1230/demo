@@ -59,11 +59,24 @@ jobs:
                 },
                 {
                     "name": "game",
-                    "action_id": "review_request"
+                    "action_id": "review_request",
                     "text": "Review Request",
                     "type": "button",
                     "value": "maze"
                 }]
+              }],
+              "blocks": [{
+                  "type": "actions",
+                  "elements": [{
+                      "type": "button",
+                      "text": {
+                          "type": "plain_text",
+                          "text": "Review Request",
+                          "emoji": true
+                      },
+                      "value": "{\"reviewer_id\":\"byunghakjang1230\",\"\"}",
+                      "action_id": "review_request"
+                  }]
               }]
             }
         if: always()
