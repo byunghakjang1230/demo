@@ -75,7 +75,8 @@ jobs:
                           "emoji": true
                       },
                       "value": "{\"reviewer_id\":\"byunghakjang1230\",\"\"}",
-                      "action_id": "review_request"
+                      "action_id": "review_request",
+                      "style": "primary"
                   }]
               }]
             }
