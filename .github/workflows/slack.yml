@@ -51,7 +51,19 @@ jobs:
                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
                   short: false
                 }], 
-                actions: [{
+                actions: [
+                {
+                    "type": "button",
+                    "action_id": "review_request",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "Review Request",
+                      "emoji": true
+                    },
+                    "value": "{\"reviewer_id\":\"byunghakjang1230\"}",
+                    "style": "primary",
+                },
+                {
                     "name": "game",
                     "text": "Chess",
                     "type": "button",
@@ -62,19 +74,6 @@ jobs:
                     "text": "Falken's Maze",
                     "type": "button",
                     "value": "maze"
-                },
-                {
-                    "name": "game",
-                    "text": "Thermonuclear War",
-                    "style": "danger",
-                    "type": "button",
-                    "value": "war",
-                    "confirm": {
-                        "title": "Are you sure?",
-                        "text": "Wouldn't you prefer a good game of chess?",
-                        "ok_text": "Yes",
-                        "dismiss_text": "No"
-                    }
                 }]
               }]
             }
