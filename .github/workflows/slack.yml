@@ -50,19 +50,6 @@ jobs:
                   title: '✅ Issue',
                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
                   short: false
-                }], 
-                "blocks": [{
-                    "type": "actions",
-                    "elements": [{
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "Review Request",
-                            "emoji": true
-                        },
-                        "value": "{\"reviewer_id\":\"byunghakjang1230\",\"\"}",
-                        "action_id": "review_request"
-                    }]
                 }],
                 actions: [{
                     "name": "game",
@@ -72,7 +59,8 @@ jobs:
                 },
                 {
                     "name": "game",
-                    "text": "Falken's Maze",
+                    "action_id": "review_request"
+                    "text": "Review Request",
                     "type": "button",
                     "value": "maze"
                 }]
