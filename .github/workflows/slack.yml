@@ -50,7 +50,7 @@ jobs:
                   title: '✅ Issue',
                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
                   short: false
-                }],
+                }], 
                 actions: [{
                     "name": "game",
                     "text": "Chess",
