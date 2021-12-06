@@ -29,10 +29,13 @@ jobs:
           TEST_ENV: 'Test!!!!'
           REVIEWERS: '<@byunghakjang1230>, <@woojang1230>'
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
           status: custom
           custom_payload: |
             {
+              channel: "C02PJAHR30B",
+              token: ${{ secrets.SLACK_BOT_TOKEN }}, 
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
                 pretext: '🔍 Review Request ${{ env.TEST_ENV }}',
@@ -50,23 +53,9 @@ jobs:
                   title: '✅ Issue',
                   value: `- 🚀 <$TEST_ENV|PR 확인> \n`,
                   short: false
-                }],
-                response_url: "https://www.postresponsestome.com/T123567/1509734234",
-                actions: [{
-                    "name": "game",
-                    "text": "Chess",
-                    "type": "button",
-                    "value": "chess"
-                },
-                {
-                    "name": "game",
-                    "action_id": "review_request",
-                    "text": "Review Request",
-                    "type": "button",
-                    "value": "maze"
                 }]
               }],
-              "blocks": [{
+              blocks: [{
                   "type": "actions",
                   "elements": [{
                       "type": "button",
