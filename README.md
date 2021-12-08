@@ -12,4 +12,4 @@
 - ㅁㅁza
 - aaaahd
 - ff
-- ss
+- ssa
