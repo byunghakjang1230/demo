@@ -27,7 +27,21 @@ jobs:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
       - uses: actions/checkout@v2
-      - name: Set up JDK 11
+      - name: Gradle Test
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Build with Gradle
+        run: |
+          ./gradlew test
+  result_test:
+    needs: [build]
+    if: ${{ needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Gradle Build
         uses: actions/setup-java@v2
         with:
           java-version: '11'
@@ -35,12 +49,6 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean build
-  result_test:
-    needs: [build]
-    if: ${{ needs.build.result == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - name: Docker Login
         uses: docker/login-action@v1
         with:
