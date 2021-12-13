@@ -27,7 +27,7 @@ jobs:
           JOB_CONTEXT: ${{ toJSON(github.event.issue) }}
         run: echo "$JOB_CONTEXT"
       - uses: actions/checkout@v2
-      - name: Gradle Test
+      - name: Gradle Build
         uses: actions/setup-java@v2
         with:
           java-version: '11'
@@ -35,6 +35,77 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean build
+      - name: Send Result
+        env:
+          MESSAGE: ${{ toJson(
+            {
+              "channel":"${{ env.CHANNEL }}",
+              "attachments":[
+                {
+                  "color":"#00FF00",
+                  "blocks":[
+                    {
+                      "type":"header",
+                      "text":{
+                        "type":"plain_text",
+                        "text":"📢 Open PR",
+                        "emoji":true
+                      }
+                    },
+                    {
+                      "type":"section",
+                      "text":{
+                        "type":"mrkdwn",
+                        "text":"*요청자*\n ◦ <@${{ env.PR_ACTOR }}>\n*PR URL*\n ◦ ${{ env.PR_HTML_URL }} \n*Commit*\n ◦ ${{ env.COMMIT_URL }} \n"
+                      }
+                    },
+                    {
+                      "type":"actions",
+                      "elements":[
+                        {
+                          "type":"button",
+                          "action_id":"review_request",
+                          "text":{
+                            "type":"plain_text",
+                            "emoji":true,
+                            "text":"리뷰 요청"
+                          },
+                          "confirm":{
+                            "title":{
+                              "type":"plain_text",
+                              "text":"리뷰를 요청하시겠습니까?"
+                            },
+                            "text":{
+                              "type":"mrkdwn",
+                              "text":"리뷰어는 ${{ env.REVIEWER }} 님 입니다."
+                            },
+                            "confirm":{
+                              "type":"plain_text",
+                              "text":"요청"
+                            },
+                            "deny":{
+                              "type":"plain_text",
+                              "text":"취소"
+                            }
+                          },
+                          "style":"primary",
+                          "value":toJson({
+                                    "user_id":"${{ env.PR_ACTOR }}",
+                                    "reviewer_id":"${{ env.REVIEWER }}",
+                                    "pr_api_url":"${{ env.PR_API_URL }}",
+                                    "pr_html_url":"${{ env.PR_HTML_URL }}",
+                                    "api_access_token":"${{ env.API_ACCESS_TOKEN }}",
+                                    "slack_token":"${{ env.SLACK_TOKEN }}"
+                                  })
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }) }}
+        run: |
+          echo $MESSAGE
 #       - name: Upload app.jar
 #         uses: actions/upload-artifact@v2
 #         with:
