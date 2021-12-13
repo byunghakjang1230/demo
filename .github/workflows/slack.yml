@@ -13,7 +13,7 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_and_deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
@@ -35,30 +35,30 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean build
-      - name: Upload app.jar
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-artifact
-          path: application/build/libs/*.jar
-  result_test:
-    needs: [build]
-    if: ${{ needs.build.result == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
+#       - name: Upload app.jar
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: app-artifact
+#           path: application/build/libs/*.jar
+#   result_test:
+#     needs: [build]
+#     if: ${{ needs.build.result == 'success' }}
+#     runs-on: ubuntu-latest
+#     steps:
 #       - uses: actions/checkout@v2
 #       - name: Gradle Build
 #         uses: actions/setup-java@v2
 #         with:
 #           java-version: '11'
 #           distribution: 'adopt'
-      - uses: actions/download-artifact@v2
-        with:
-          name: app-artifact
-      - name: Make Dockerfile
-        run: |
-          echo 'FROM openjdk:11-jdk-oracle\nARG JAR_FILE=*.jar\nCOPY ${JAR_FILE} app.jar\nENTRYPOINT ["java","-jar","/app.jar"]' >> Dockerfile
-          ls -la
-          cat Dockerfile
+#       - uses: actions/download-artifact@v2
+#         with:
+#           name: app-artifact
+#       - name: Make Dockerfile
+#         run: |
+#           echo 'FROM openjdk:11-jdk-oracle\nARG JAR_FILE=*.jar\nCOPY ${JAR_FILE} app.jar\nENTRYPOINT ["java","-jar","/app.jar"]' >> Dockerfile
+#           ls -la
+#           cat Dockerfile
 #       - name: Build with Gradle
 #         run: |
 #           ./gradlew clean build
@@ -70,7 +70,7 @@ jobs:
       - name: Docker Build
         uses: docker/build-push-action@v2
         env:
-          TAG1: ${{ format('{0}/cicd-test:{1}', secrets.DOCKERHUB_USERNAME, 'v1.0') }}
+          TAG1: ${{ format('{0}/cicd-test:{1}', secrets.DOCKERHUB_USERNAME, 'v1.1') }}
           TAG2: ${{ format('{0}/cicd-test:latest', secrets.DOCKERHUB_USERNAME) }}
         with:
           context: .
