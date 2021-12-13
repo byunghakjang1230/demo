@@ -37,7 +37,7 @@ jobs:
         run: |
           ./gradlew clean build
       - name: Send Error Message
-        if: ${{ !'true' }}
+        if: ${{ !failure() }}
         run: |
           curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
           https://slack.com/api/chat.postMessage \
