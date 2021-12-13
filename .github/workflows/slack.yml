@@ -33,15 +33,18 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build with Gradle
-        run: |
-          ./gradlew clean build
-      - name: Send Error Message
-        if: ${{ !failure() }}
+#       - name: Build with Gradle
+#         run: |
+#           ./gradlew clean build
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+      - name: '@ Send Fail Message'
+        if: ${{ !success() }}
         run: |
           curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
           https://slack.com/api/chat.postMessage \
-          -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"FF5600","blocks":[{"type":"header","text":{"type":"plain_text","text":"‼️ Build Fail","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*배포 빌드 실패*"}}]}]}'
+          -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"FF5600","blocks":[{"type":"header","text":{"type":"plain_text","text":"‼️ Gradle Fail","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*Gradle 테스트 & 빌드 실패* \nPR : "}}]}]}'
 #       - name: Upload app.jar
 #         uses: actions/upload-artifact@v2
 #         with:
@@ -74,6 +77,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: '@ Send Fail Message'
+        if: ${{ !success() }}
+        run: |
+          curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
+          https://slack.com/api/chat.postMessage \
+          -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"FF5600","blocks":[{"type":"header","text":{"type":"plain_text","text":"‼️ Docker Fail","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*도커 로그인 실패* \nPR : "}}]}]}'
       - name: Docker Build
         uses: docker/build-push-action@v2
         env:
@@ -85,7 +94,12 @@ jobs:
 #           build-args: mysql_host=${{ secrets.MYSQL_HOST }},mode=prod
           tags: ${{ env.TAG1 }},${{ env.TAG2 }}
 #           labels: ${{ steps.meta.outputs.labels }}
-        
+      - name: '@ Send Fail Message'
+        if: ${{ !success() }}
+        run: |
+          curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
+          https://slack.com/api/chat.postMessage \
+          -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"FF5600","blocks":[{"type":"header","text":{"type":"plain_text","text":"‼️ Docker Fail","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*도커 이미지 빌드 & Push 실패* \nPR : "}}]}]}'
 #         uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
 #         with:
 #           arguments: build
