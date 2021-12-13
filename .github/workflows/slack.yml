@@ -34,18 +34,29 @@ jobs:
           distribution: 'adopt'
       - name: Build with Gradle
         run: |
-          ./gradlew test
+          ./gradlew clean build
+      - name: Upload app.jar
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-artifact
+          path: application/build/libs/*.jar
   result_test:
     needs: [build]
     if: ${{ needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Gradle Build
-        uses: actions/setup-java@v2
+#       - uses: actions/checkout@v2
+#       - name: Gradle Build
+#         uses: actions/setup-java@v2
+#         with:
+#           java-version: '11'
+#           distribution: 'adopt'
+      - uses: actions/download-artifact@v2
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          name: app-artifact
+      - name: Make Dockerfile
+        run: |
+          echo 'FROM openjdk:11-jdk-oracle\nARG JAR_FILE=*.jar\nCOPY ${JAR_FILE} app.jar\nENTRYPOINT ["java","-jar","/app.jar"]' >> Dockerfile
       - name: Build with Gradle
         run: |
           ./gradlew clean build
