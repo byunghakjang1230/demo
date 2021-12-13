@@ -45,6 +45,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Docker Build
+        uses: docker/build-push-action@v2
+        env:
+          TAG1: ${{ format('{0}/ksp-back:{1}', secrets.DOCKER_HUB_USERNAME, 'v1.7') }}
+          TAG2: ${{ format('{0}/ksp-back:latest', secrets.DOCKER_HUB_USERNAME) }}
+        with:
+          context: .
+          push: true
+#           build-args: mysql_host=${{ secrets.MYSQL_HOST }},mode=prod
+          tags: $TAG1,$TAG2
+#           labels: ${{ steps.meta.outputs.labels }}
         
 #         uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
 #         with:
