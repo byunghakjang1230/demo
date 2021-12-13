@@ -57,9 +57,11 @@ jobs:
       - name: Make Dockerfile
         run: |
           echo 'FROM openjdk:11-jdk-oracle\nARG JAR_FILE=*.jar\nCOPY ${JAR_FILE} app.jar\nENTRYPOINT ["java","-jar","/app.jar"]' >> Dockerfile
-      - name: Build with Gradle
-        run: |
-          ./gradlew clean build
+          ls -la
+          cat Dockerfile
+#       - name: Build with Gradle
+#         run: |
+#           ./gradlew clean build
       - name: Docker Login
         uses: docker/login-action@v1
         with:
