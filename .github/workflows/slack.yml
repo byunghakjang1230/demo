@@ -54,7 +54,7 @@ jobs:
           context: .
           push: true
 #           build-args: mysql_host=${{ secrets.MYSQL_HOST }},mode=prod
-          tags: ${{ env.TAG1 }},${{ evn.TAG2 }}
+          tags: ${{ env.TAG1 }},${{ env.TAG2 }}
 #           labels: ${{ steps.meta.outputs.labels }}
         
 #         uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
