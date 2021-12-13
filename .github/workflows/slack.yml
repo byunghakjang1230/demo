@@ -36,14 +36,12 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean build
-      - name: Send Result
-        env:
-          COLOR: ${{ success() && '#00FF00' || 'FF5600'}}
-          RESULT_MESSAGE: ${{ success() && '배포 빌드 성공' || '배포 빌드 실패' }}
+      - name: Send Error Message
+        if: ${{ !'true' }}
         run: |
           curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
           https://slack.com/api/chat.postMessage \
-          -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"${{ env.COLOR }}","blocks":[{"type":"header","text":{"type":"plain_text","text":"📢 Build Result","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*${{ env.RESULT_MESSAGE }}*"}}]}]}'
+          -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"FF5600","blocks":[{"type":"header","text":{"type":"plain_text","text":"‼️ Build Fail","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*배포 빌드 실패*"}}]}]}'
 #       - name: Upload app.jar
 #         uses: actions/upload-artifact@v2
 #         with:
