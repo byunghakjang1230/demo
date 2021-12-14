@@ -47,11 +47,7 @@ jobs:
           curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
           https://slack.com/api/chat.postMessage \
           -d '{"channel":"${{ env.CHANNEL }}","attachments":[{"color":"FF5600","blocks":[{"type":"header","text":{"type":"plain_text","text":"‼️ Gradle Fail","emoji":true}},{"type":"section","text":{"type":"mrkdwn","text":"*Gradle 테스트 & 빌드 실패* \nPR : "}}]}]}'
-#       - name: Upload app.jar
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: app-artifact
-#           path: application/build/libs/*.jar
+
 #   result_test:
 #     needs: [build]
 #     if: ${{ needs.build.result == 'success' }}
