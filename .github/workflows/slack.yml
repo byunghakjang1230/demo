@@ -94,7 +94,7 @@ jobs:
 #           build-args: mysql_host=${{ secrets.MYSQL_HOST }},mode=prod
           tags: ${{ env.TAG1 }},${{ env.TAG2 }}
 #           labels: ${{ steps.meta.outputs.labels }}
-      - name: '@ Send Fail Message'
+      - name: '@ Send Fail Message' 
         if: ${{ !success() }}
         run: |
           curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer ${{ env.SLACK_TOKEN }}" \
