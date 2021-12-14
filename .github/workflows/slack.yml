@@ -9,7 +9,7 @@ on:
 
 env:
   SLACK_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-  CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
+  CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }} 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
